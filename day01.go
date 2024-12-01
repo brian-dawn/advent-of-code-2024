@@ -58,5 +58,21 @@ func main() {
 		totalDistance += diff
 	}
 
-	fmt.Println(totalDistance)
+	fmt.Println("Part1:", totalDistance)
+
+	part2 := 0
+	for _, leftItem := range left {
+
+		occurences := 0
+		for _, rightItem := range right {
+			if rightItem == leftItem {
+				occurences++
+			}
+		}
+
+		part2 += occurences * leftItem
+	}
+
+	fmt.Println("Part2:", part2)
+
 }
