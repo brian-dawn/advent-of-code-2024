@@ -13,6 +13,27 @@ const (
 	decreasing
 )
 
+func isSafeWithDampener(report []int) bool {
+	// If it's already safe no need to dampen it.
+	if isSafe(report) {
+		return true
+	}
+
+	for i := 0; i < len(report); i++ {
+		// Create a new report with the ith element removed.
+		modified := append([]int{}, report[:i]...)
+		modified = append(modified, report[i+1:]...)
+
+		if isSafe(modified) {
+			return true
+		}
+
+	}
+
+	return false
+
+}
+
 func isSafe(report []int) bool {
 
 	increasing := true
@@ -42,7 +63,7 @@ func main() {
 
 	scanner := bufio.NewScanner(os.Stdin)
 
-	var safeCounter int
+	var safeCounterWithDampener, safeCounter int
 
 	for scanner.Scan() {
 		line := scanner.Text()
@@ -64,8 +85,13 @@ func main() {
 			safeCounter++
 		}
 
+		if isSafeWithDampener(level) {
+			safeCounterWithDampener++
+		}
+
 	}
 
 	fmt.Println("Part1:", safeCounter)
+	fmt.Println("Part2:", safeCounterWithDampener)
 
 }
