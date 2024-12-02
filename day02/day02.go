@@ -8,11 +8,6 @@ import (
 	"strings"
 )
 
-const (
-	increasing = iota
-	decreasing
-)
-
 func isSafeWithDampener(report []int) bool {
 	// If it's already safe no need to dampen it.
 	if isSafe(report) {
